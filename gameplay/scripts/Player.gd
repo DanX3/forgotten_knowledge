@@ -1,11 +1,14 @@
 extends CharacterBody2D
 
+class_name Player
 
 const SPEED = 100.0
 var shootDir = Vector2.ZERO
 @export var potion_base: PackedScene
 @export var potion_light: PackedScene
 @export var potion_heavy: PackedScene
+@export var inventory: Inventory
+@export var health: Health
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
@@ -27,7 +30,7 @@ func _physics_process(delta):
 			shootDir = Vector2(direction.x, 0.0).normalized()
 		else:
 			shootDir = Vector2(0.0, direction.y).normalized()
-		queue_redraw()
+#		queue_redraw()
 		
 	else:
 		velocity = move_toward_v2(velocity, Vector2.ZERO, 0.1 * SPEED)
@@ -38,7 +41,13 @@ func _draw():
 	draw_line(Vector2.ZERO, 20.0 * shootDir, Color.REBECCA_PURPLE, 3.0)
 
 
-func _on_potion_shooter_shoot(name, strength):
+func _on_potion_shooter_shoot(name, strength, items_needed: Array[Item]):
+	if not inventory.has_items(items_needed):
+		# TODO: add visual feedback
+		print_debug("Not enough items to cast " + name)
+		return
+	
+	inventory.use(items_needed)
 	var new_potion: Potion
 	match name:
 		"potion_base":
@@ -52,3 +61,8 @@ func _on_potion_shooter_shoot(name, strength):
 	new_potion.position = position
 	new_potion.linear_velocity = shootDir * 600.0 * strength
 	print("shot potion " + name + " with strength " + str(strength))
+
+@onready var health_player = $HealthPlayer
+
+func _on_health_component_damaged(damage):
+	health_player.play("damaged")

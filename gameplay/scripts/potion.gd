@@ -14,3 +14,7 @@ func _process(delta):
 
 func _on_timer_timeout():
 	queue_free()
+
+func hit_enemy(enemy: Enemy):
+	enemy.health.take_damage(10.0)
+	queue_free()

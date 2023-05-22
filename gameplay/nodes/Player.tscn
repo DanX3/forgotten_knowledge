@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0jtxjn75061f"]
+[gd_scene load_steps=18 format=3 uid="uid://c0jtxjn75061f"]
 
 [ext_resource type="Script" path="res://gameplay/scripts/Player.gd" id="1_tvx6t"]
 [ext_resource type="Texture2D" uid="uid://d4j37ptch4dki" path="res://assets/Tiny Dungeon/Tiles/tile_0084.png" id="2_0nrea"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://n7816pyfg40o" path="res://gameplay/nodes/potion_light.tscn" id="3_7y81r"]
 [ext_resource type="PackedScene" uid="uid://e6g6efdiu8wu" path="res://gameplay/nodes/potion_heavy.tscn" id="4_27xaj"]
 [ext_resource type="PackedScene" uid="uid://b210gum8ssm8" path="res://gameplay/nodes/potion_shooter.tscn" id="4_wy1x2"]
+[ext_resource type="Resource" uid="uid://bakhahtj7ivbd" path="res://gameplay/items/Square.tres" id="7_3jkyc"]
+[ext_resource type="Script" path="res://gameplay/scripts/HealthComponent.gd" id="7_8e522"]
+[ext_resource type="Resource" uid="uid://dsxyalm33kg73" path="res://gameplay/items/Pentagon.tres" id="8_6e848"]
+[ext_resource type="Script" path="res://gameplay/scripts/inventory.gd" id="8_ejc20"]
 
 [sub_resource type="Animation" id="Animation_eklo5"]
 resource_name = "Idle"
@@ -48,11 +52,51 @@ _data = {
 radius = 7.0
 height = 16.0
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[sub_resource type="Animation" id="Animation_w4u8l"]
+resource_name = "damaged"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(0.5, 1),
+"update": 0,
+"values": [Color(1, 0.0196078, 0.0196078, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_iq57l"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8gd1i"]
+_data = {
+"RESET": SubResource("Animation_iq57l"),
+"damaged": SubResource("Animation_w4u8l")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("inventory", "health") groups=["player"]]
+collision_layer = 8
 script = ExtResource("1_tvx6t")
 potion_base = ExtResource("2_65rua")
 potion_light = ExtResource("3_7y81r")
 potion_heavy = ExtResource("4_27xaj")
+inventory = NodePath("Inventory")
+health = NodePath("HealthComponent")
 
 [node name="Pivot" type="Node2D" parent="."]
 
@@ -75,11 +119,29 @@ shape = SubResource("CapsuleShape2D_8x51h")
 action_name = "potion_base"
 
 [node name="PotionShooterLight" parent="." instance=ExtResource("4_wy1x2")]
+items_needed = Array[Resource("res://gameplay/scripts/Item.gd")]([ExtResource("7_3jkyc")])
 
 [node name="PotionShooterHeavy" parent="." instance=ExtResource("4_wy1x2")]
 action_name = "potion_heavy"
 max_charge_duration_s = 2.0
+items_needed = Array[Resource("res://gameplay/scripts/Item.gd")]([ExtResource("7_3jkyc"), ExtResource("8_6e848")])
+
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("7_8e522")
+
+[node name="Timer" type="Timer" parent="HealthComponent"]
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("8_ejc20")
+
+[node name="HealthPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../HealthComponent")
+libraries = {
+"": SubResource("AnimationLibrary_8gd1i")
+}
 
 [connection signal="shoot" from="PotionShooterBase" to="." method="_on_potion_shooter_shoot"]
 [connection signal="shoot" from="PotionShooterLight" to="." method="_on_potion_shooter_shoot"]
 [connection signal="shoot" from="PotionShooterHeavy" to="." method="_on_potion_shooter_shoot"]
+[connection signal="damaged" from="HealthComponent" to="." method="_on_health_component_damaged"]
+[connection signal="timeout" from="HealthComponent/Timer" to="HealthComponent" method="_on_timer_timeout"]

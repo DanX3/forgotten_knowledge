@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://dsxyalm33kg73"]
+
+[ext_resource type="Script" path="res://gameplay/scripts/Item.gd" id="1_pw7oo"]
+[ext_resource type="Texture2D" uid="uid://chva8vi5meh1t" path="res://assets/Puzzle Assets/PNG/Default/element_green_polygon_glossy.png" id="2_hf2bl"]
+
+[resource]
+script = ExtResource("1_pw7oo")
+name = "Pentagon"
+code = "pentagon"
+max_count = 10
+sprite = ExtResource("2_hf2bl")

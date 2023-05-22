@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://b56w85g4gdukq"]
+
+[ext_resource type="Script" path="res://gameplay/scripts/Item.gd" id="1_hq7nw"]
+[ext_resource type="Texture2D" uid="uid://b7eld2p3eltib" path="res://assets/Puzzle Assets/PNG/Default/ballBlue.png" id="2_ydx2t"]
+
+[resource]
+script = ExtResource("1_hq7nw")
+name = "Sphere"
+code = "Sphere"
+max_count = 5
+sprite = ExtResource("2_ydx2t")

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="Item" load_steps=3 format=3 uid="uid://bakhahtj7ivbd"]
+
+[ext_resource type="Script" path="res://gameplay/scripts/Item.gd" id="1_63voo"]
+[ext_resource type="Texture2D" uid="uid://cwahawjw8dere" path="res://assets/Puzzle Assets/PNG/Default/element_grey_diamond_glossy.png" id="2_tg2wb"]
+
+[resource]
+script = ExtResource("1_63voo")
+name = "Square"
+code = "square"
+max_count = 20
+sprite = ExtResource("2_tg2wb")

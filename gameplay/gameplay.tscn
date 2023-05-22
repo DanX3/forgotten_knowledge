@@ -1,9 +1,14 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdnyglk1i1cxl"]
+[gd_scene load_steps=13 format=3 uid="uid://bdnyglk1i1cxl"]
 
 [ext_resource type="Script" path="res://gameplay/gameplay.gd" id="1_thqv1"]
 [ext_resource type="Texture2D" uid="uid://c6px30nw8dto8" path="res://assets/Tiny Dungeon/Tilemap/tilemap.png" id="2_j8in5"]
 [ext_resource type="PackedScene" uid="uid://c0jtxjn75061f" path="res://gameplay/nodes/Player.tscn" id="3_cxw0r"]
-[ext_resource type="PackedScene" uid="uid://n7816pyfg40o" path="res://gameplay/nodes/potion_light.tscn" id="4_x3m0t"]
+[ext_resource type="PackedScene" uid="uid://cao3hj42g3yd6" path="res://gameplay/nodes/projectile.tscn" id="5_3ci68"]
+[ext_resource type="PackedScene" uid="uid://d0rwcldw3htfy" path="res://gameplay/nodes/collectible.tscn" id="6_be473"]
+[ext_resource type="Resource" uid="uid://bakhahtj7ivbd" path="res://gameplay/items/Square.tres" id="7_hutjm"]
+[ext_resource type="Resource" uid="uid://dsxyalm33kg73" path="res://gameplay/items/Pentagon.tres" id="8_fau24"]
+[ext_resource type="Resource" uid="uid://b56w85g4gdukq" path="res://gameplay/items/Sphere.tres" id="9_lxmkk"]
+[ext_resource type="PackedScene" uid="uid://bwmg4hsem3wt7" path="res://gameplay/nodes/enemy.tscn" id="9_nrflo"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_mj767"]
 tile_data = PackedInt32Array(0, 262160, 5, 65536, 393232, 5)
@@ -471,4 +476,39 @@ layer_2/tile_data = PackedInt32Array(-262155, 262160, 5, -262158, 262160, 5, -26
 
 [node name="CharacterBody2D" parent="." instance=ExtResource("3_cxw0r")]
 
-[node name="Potion" parent="." instance=ExtResource("4_x3m0t")]
+[node name="Projectile" parent="." instance=ExtResource("5_3ci68")]
+position = Vector2(-65, 0)
+speed = Vector2(20, 0)
+
+[node name="Collectible" parent="." instance=ExtResource("6_be473")]
+position = Vector2(37, 27)
+item = ExtResource("7_hutjm")
+
+[node name="Collectible2" parent="." instance=ExtResource("6_be473")]
+position = Vector2(69, 36)
+item = ExtResource("8_fau24")
+
+[node name="Collectible3" parent="." instance=ExtResource("6_be473")]
+position = Vector2(39, 64)
+scale = Vector2(0.663849, 1)
+item = ExtResource("9_lxmkk")
+
+[node name="Collectible4" parent="." instance=ExtResource("6_be473")]
+position = Vector2(111, 43)
+item = ExtResource("7_hutjm")
+
+[node name="Collectible5" parent="." instance=ExtResource("6_be473")]
+position = Vector2(92, 71)
+item = ExtResource("7_hutjm")
+
+[node name="Enemy" parent="." instance=ExtResource("9_nrflo")]
+position = Vector2(-21, -39)
+
+[node name="Enemy2" parent="." instance=ExtResource("9_nrflo")]
+position = Vector2(37, -17)
+
+[node name="Enemy3" parent="." instance=ExtResource("9_nrflo")]
+position = Vector2(-33, 46)
+
+[node name="Enemy4" parent="." instance=ExtResource("9_nrflo")]
+position = Vector2(93, 28)
