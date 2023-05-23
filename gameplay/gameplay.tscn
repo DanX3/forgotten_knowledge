@@ -502,13 +502,13 @@ position = Vector2(92, 71)
 item = ExtResource("7_hutjm")
 
 [node name="Enemy" parent="." instance=ExtResource("9_nrflo")]
-position = Vector2(-21, -39)
+position = Vector2(53, -19)
 
 [node name="Enemy2" parent="." instance=ExtResource("9_nrflo")]
-position = Vector2(37, -17)
+position = Vector2(99, -2)
 
 [node name="Enemy3" parent="." instance=ExtResource("9_nrflo")]
-position = Vector2(-33, 46)
+position = Vector2(7, -40)
 
 [node name="Enemy4" parent="." instance=ExtResource("9_nrflo")]
-position = Vector2(93, 28)
+position = Vector2(-54, -29)

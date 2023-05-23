@@ -10,11 +10,11 @@ class_name Collectible
 
 func init(item: Item):
 	self.item = item
-	sprite.texture = item.sprite
-	sprite_background.texture = item.sprite
 
 func _ready():
-	init(item)
+	self.item = item
+	sprite.texture = item.sprite
+	sprite_background.texture = item.sprite
 
 func _on_body_entered(body):
 	print("entered body")

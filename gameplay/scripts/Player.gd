@@ -65,4 +65,5 @@ func _on_potion_shooter_shoot(name, strength, items_needed: Array[Item]):
 @onready var health_player = $HealthPlayer
 
 func _on_health_component_damaged(damage):
+	print("health player is null: " + str(health_player == null))
 	health_player.play("damaged")

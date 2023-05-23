@@ -22,9 +22,10 @@ func take_damage(damage: int):
 	hp -= damage
 	emit_signal("damaged", damage)
 	
-	if invulnerability_after_damage_s > 0.0:
+	if invulnerability_after_damage_s > 0.0 + 1e-5:
 		can_take_damage = false
 		timer.start(invulnerability_after_damage_s)
+		print("started timer")
 	
 	if hp <= 0:
 		emit_signal("died")
@@ -32,4 +33,5 @@ func take_damage(damage: int):
 
 
 func _on_timer_timeout():
+	print("can take damage again")
 	can_take_damage = true

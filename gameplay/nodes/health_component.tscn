@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6n1u35tex1x4"]
+
+[ext_resource type="Script" path="res://gameplay/scripts/HealthComponent.gd" id="1_5pxp7"]
+
+[node name="HealthComponent" type="Node"]
+script = ExtResource("1_5pxp7")
+max_hp = 20
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -7,12 +7,15 @@ signal shoot(name, strength, items_needed)
 @export var action_name: String
 @export var max_charge_duration_s = 1.0
 @export var items_needed: Array[Item]
+@export var cooldown := 0.5
 
 @onready var timer = $Timer
 @onready var progress = $TextureProgressBar
 
+var shoot_at := -1.0
+var last_shot_at := -1.0
+
 func _ready():
-	set_process(false)
 	progress.hide()
 
 # tells when charging started
@@ -24,28 +27,41 @@ func _unhandled_input(event):
 		$Timer.start()
 	
 	if Input.is_action_just_released(action_name):
-		set_process(false)
 		progress.hide()
 		# release charged potion
 		if charge_time_start > 0.0:
 			emit_signal("shoot", action_name, _get_strength(), items_needed)
+			last_shot_at = 0.001 * Time.get_ticks_msec()
 			charge_time_start = -1.0
 		# single press release
 		else:
-			emit_signal("shoot", action_name, 0.3, items_needed)
+			if _can_shoot():
+				emit_signal("shoot", action_name, 0.3, items_needed)
+				last_shot_at = 0.001 * Time.get_ticks_msec()
+			else:
+				shoot_at = last_shot_at + cooldown
+				print("Shooting at " + str(shoot_at))
 
 func _process(delta):
 	progress.value =  _get_strength()
+	if shoot_at > 0.0 and 0.001 * Time.get_ticks_msec() > shoot_at:
+		shoot_at = -1.0
+		emit_signal("shoot", action_name, 0.3, items_needed)
+		last_shot_at = 0.001 * Time.get_ticks_msec()
+	
 
 func _on_timer_timeout():
 	if Input.is_action_pressed(action_name):
 		charge_time_start = 0.001 * Time.get_ticks_msec()
 		progress.show()
-		set_process(true)
 
 func _get_strength() -> float:
 	var res = (0.001 * Time.get_ticks_msec() - charge_time_start) / max_charge_duration_s
 	return min(res, 1.0) * min(res, 1.0)
+
+func _can_shoot() -> bool:
+	return last_shot_at + cooldown < 0.001 * Time.get_ticks_msec()
+		
 
 func _draw():
 	pass
