@@ -23,3 +23,8 @@ func _exit_tree():
 			new_collectible.init(drop.item)
 			get_parent().add_child.call_deferred(new_collectible)
 			new_collectible.position = position
+
+@onready var player = $AnimationPlayer
+
+func _on_health_component_damaged(damage):
+	player.play("damaged")

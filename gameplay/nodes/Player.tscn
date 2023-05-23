@@ -119,7 +119,6 @@ shape = SubResource("CapsuleShape2D_8x51h")
 action_name = "potion_base"
 
 [node name="PotionShooterLight" parent="." instance=ExtResource("4_wy1x2")]
-items_needed = Array[Resource("res://gameplay/scripts/Item.gd")]([ExtResource("7_3jkyc")])
 
 [node name="PotionShooterHeavy" parent="." instance=ExtResource("4_wy1x2")]
 action_name = "potion_heavy"
