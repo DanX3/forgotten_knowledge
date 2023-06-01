@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://e6g6efdiu8wu"]
+[gd_scene load_steps=5 format=3 uid="uid://e6g6efdiu8wu"]
 
 [ext_resource type="Script" path="res://gameplay/scripts/potion.gd" id="1_huwk4"]
+[ext_resource type="PackedScene" uid="uid://bjea51m7ja8b7" path="res://gameplay/nodes/flame.tscn" id="2_hbkhw"]
 [ext_resource type="Texture2D" uid="uid://cn32bgmcmxmcd" path="res://assets/Tiny Dungeon/Tiles/tile_0115.png" id="2_jhvne"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5nrpn"]
@@ -15,6 +16,7 @@ linear_damp = 4.0
 angular_velocity = 50.0
 angular_damp = 2.0
 script = ExtResource("1_huwk4")
+effect_scene = ExtResource("2_hbkhw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_5nrpn")

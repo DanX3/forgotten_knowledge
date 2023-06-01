@@ -1,0 +1,175 @@
+[gd_scene load_steps=17 format=3 uid="uid://bjea51m7ja8b7"]
+
+[ext_resource type="Script" path="res://gameplay/scripts/flame.gd" id="1_wik6n"]
+[ext_resource type="Texture2D" uid="uid://52rssyu7uweh" path="res://assets/evil_spirit3.png" id="2_j573s"]
+[ext_resource type="Texture2D" uid="uid://dj2xemmiedv3f" path="res://assets/explosion_round_softshadow_3x3.png" id="3_75u2j"]
+
+[sub_resource type="Animation" id="Animation_mels7"]
+resource_name = "Disappear"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"default", 1.0, false],
+"method": &"play"
+}]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Ghost:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_bnr8t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Ghost:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_27qm7"]
+_data = {
+"Disappear": SubResource("Animation_mels7"),
+"RESET": SubResource("Animation_bnr8t")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r1tba"]
+atlas = ExtResource("3_75u2j")
+region = Rect2(0, 0, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8lfaj"]
+atlas = ExtResource("3_75u2j")
+region = Rect2(341, 0, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bs82c"]
+atlas = ExtResource("3_75u2j")
+region = Rect2(682, 0, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pwvqm"]
+atlas = ExtResource("3_75u2j")
+region = Rect2(0, 341, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e5sav"]
+atlas = ExtResource("3_75u2j")
+region = Rect2(341, 341, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eo2rn"]
+atlas = ExtResource("3_75u2j")
+region = Rect2(682, 341, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gscyv"]
+atlas = ExtResource("3_75u2j")
+region = Rect2(0, 682, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0tpy"]
+atlas = ExtResource("3_75u2j")
+region = Rect2(341, 682, 341, 341)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0x6j1"]
+atlas = ExtResource("3_75u2j")
+region = Rect2(682, 682, 341, 341)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qjyt1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r1tba")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8lfaj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bs82c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pwvqm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e5sav")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eo2rn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gscyv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0tpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0x6j1")
+}],
+"loop": false,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Flame" type="Node2D"]
+script = ExtResource("1_wik6n")
+
+[node name="Ghost" type="Sprite2D" parent="."]
+scale = Vector2(0.078125, 0.078125)
+texture = ExtResource("2_j573s")
+flip_h = true
+
+[node name="Marker2D" type="Marker2D" parent="."]
+position = Vector2(65, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_27qm7")
+}
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+scale = Vector2(0.199413, 0.199413)
+sprite_frames = SubResource("SpriteFrames_qjyt1")
+frame = 8
+frame_progress = 1.0
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

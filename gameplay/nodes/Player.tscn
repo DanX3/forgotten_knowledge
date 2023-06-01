@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://c0jtxjn75061f"]
+[gd_scene load_steps=16 format=3 uid="uid://c0jtxjn75061f"]
 
 [ext_resource type="Script" path="res://gameplay/scripts/Player.gd" id="1_tvx6t"]
 [ext_resource type="Texture2D" uid="uid://d4j37ptch4dki" path="res://assets/Tiny Dungeon/Tiles/tile_0084.png" id="2_0nrea"]
@@ -6,8 +6,6 @@
 [ext_resource type="PackedScene" uid="uid://n7816pyfg40o" path="res://gameplay/nodes/potion_light.tscn" id="3_7y81r"]
 [ext_resource type="PackedScene" uid="uid://e6g6efdiu8wu" path="res://gameplay/nodes/potion_heavy.tscn" id="4_27xaj"]
 [ext_resource type="PackedScene" uid="uid://b210gum8ssm8" path="res://gameplay/nodes/potion_shooter.tscn" id="4_wy1x2"]
-[ext_resource type="Resource" uid="uid://bakhahtj7ivbd" path="res://gameplay/items/Square.tres" id="7_3jkyc"]
-[ext_resource type="Resource" uid="uid://dsxyalm33kg73" path="res://gameplay/items/Pentagon.tres" id="8_6e848"]
 [ext_resource type="Script" path="res://gameplay/scripts/inventory.gd" id="8_ejc20"]
 [ext_resource type="PackedScene" uid="uid://b6n1u35tex1x4" path="res://gameplay/nodes/health_component.tscn" id="9_x7u1o"]
 
@@ -125,7 +123,6 @@ action_name = "potion_base"
 [node name="PotionShooterHeavy" parent="." instance=ExtResource("4_wy1x2")]
 action_name = "potion_heavy"
 max_charge_duration_s = 2.0
-items_needed = Array[Resource("res://gameplay/scripts/Item.gd")]([ExtResource("7_3jkyc"), ExtResource("8_6e848")])
 
 [node name="HealthComponent" parent="." instance=ExtResource("9_x7u1o")]
 invulnerability_after_damage_s = 0.5

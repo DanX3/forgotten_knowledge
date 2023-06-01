@@ -1,18 +1,17 @@
-[gd_scene load_steps=18 format=3 uid="uid://bdnyglk1i1cxl"]
+[gd_scene load_steps=17 format=3 uid="uid://bdnyglk1i1cxl"]
 
 [ext_resource type="Script" path="res://gameplay/gameplay.gd" id="1_thqv1"]
 [ext_resource type="Texture2D" uid="uid://c6px30nw8dto8" path="res://assets/Tiny Dungeon/Tilemap/tilemap.png" id="2_j8in5"]
 [ext_resource type="PackedScene" uid="uid://c0jtxjn75061f" path="res://gameplay/nodes/Player.tscn" id="3_cxw0r"]
 [ext_resource type="Shader" path="res://gameplay/poison.gdshader" id="3_n38gr"]
 [ext_resource type="Texture2D" uid="uid://da3vjn618ooj0" path="res://assets/noise_groovy.png" id="4_1784p"]
-[ext_resource type="PackedScene" uid="uid://cao3hj42g3yd6" path="res://gameplay/nodes/projectile.tscn" id="5_3ci68"]
 [ext_resource type="Texture2D" uid="uid://do36gmp05jfxd" path="res://assets/white.png" id="5_505ns"]
 [ext_resource type="PackedScene" uid="uid://d0rwcldw3htfy" path="res://gameplay/nodes/collectible.tscn" id="6_be473"]
 [ext_resource type="Script" path="res://gameplay/scripts/circle.gd" id="6_qwp2d"]
 [ext_resource type="Resource" uid="uid://bakhahtj7ivbd" path="res://gameplay/items/Square.tres" id="7_hutjm"]
 [ext_resource type="Resource" uid="uid://dsxyalm33kg73" path="res://gameplay/items/Pentagon.tres" id="8_fau24"]
 [ext_resource type="PackedScene" uid="uid://bwmg4hsem3wt7" path="res://gameplay/nodes/enemy.tscn" id="9_nrflo"]
-[ext_resource type="PackedScene" uid="uid://ct31fvhq6cgl3" path="res://gameplay/nodes/poison_effect.tscn" id="13_q3xfy"]
+[ext_resource type="PackedScene" uid="uid://bjea51m7ja8b7" path="res://gameplay/nodes/flame.tscn" id="12_a2xb5"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_mj767"]
 tile_data = PackedInt32Array(0, 262160, 5, 65536, 393232, 5)
@@ -496,10 +495,6 @@ script = ExtResource("6_qwp2d")
 z_index = 1
 position = Vector2(-31, 46)
 
-[node name="Projectile" parent="." instance=ExtResource("5_3ci68")]
-position = Vector2(-65, 0)
-speed = Vector2(20, 0)
-
 [node name="Collectible" parent="." instance=ExtResource("6_be473")]
 position = Vector2(37, 27)
 item = ExtResource("7_hutjm")
@@ -524,4 +519,4 @@ position = Vector2(7, -40)
 [node name="Enemy4" parent="." instance=ExtResource("9_nrflo")]
 position = Vector2(-54, -29)
 
-[node name="PoisonEffect" parent="." instance=ExtResource("13_q3xfy")]
+[node name="Flame" parent="." instance=ExtResource("12_a2xb5")]
