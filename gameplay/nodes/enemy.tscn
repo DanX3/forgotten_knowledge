@@ -91,7 +91,8 @@ _data = {
 "damaged": SubResource("Animation_hjqgq")
 }
 
-[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("health")]
+[node name="Enemy" type="RigidBody2D" node_paths=PackedStringArray("health") groups=["enemy"]]
+z_index = 1
 collision_layer = 4
 collision_mask = 3
 gravity_scale = 0.0

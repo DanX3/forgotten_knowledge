@@ -6,7 +6,9 @@ var player: Player = null
 
 func _process(delta):
 	if not player:
-		player = get_tree().get_nodes_in_group("player")[0]
+		if get_tree().get_nodes_in_group("player").is_empty():
+			return
+	player = get_tree().get_nodes_in_group("player")[0]
 	
 	var dir_x = sign(player.global_position.x - get_parent().global_position.x)
 	if facing_left:

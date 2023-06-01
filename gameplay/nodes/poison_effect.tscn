@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://ct31fvhq6cgl3"]
+
+[ext_resource type="Script" path="res://gameplay/scripts/PoisonEffect.gd" id="1_uxu1j"]
+[ext_resource type="Shader" path="res://gameplay/poison.gdshader" id="2_y4lah"]
+[ext_resource type="Texture2D" uid="uid://da3vjn618ooj0" path="res://assets/noise_groovy.png" id="3_hynml"]
+[ext_resource type="Texture2D" uid="uid://do36gmp05jfxd" path="res://assets/white.png" id="4_8uff7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_i18rh"]
+radius = 26.0768
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2sliy"]
+shader = ExtResource("2_y4lah")
+shader_parameter/background = Color(0.352941, 0.509804, 0.203922, 1)
+shader_parameter/highlight = Color(0.596078, 0.678431, 0.341176, 1)
+shader_parameter/noise_tex = ExtResource("3_hynml")
+
+[node name="PoisonEffect" type="Area2D"]
+collision_layer = 0
+collision_mask = 12
+script = ExtResource("1_uxu1j")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_i18rh")
+debug_color = Color(0.466667, 0.592157, 0.0901961, 0.419608)
+
+[node name="FreeTimer" type="Timer" parent="."]
+wait_time = 5.1
+autostart = true
+
+[node name="DamageTimer" type="Timer" parent="."]
+autostart = true
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+material = SubResource("ShaderMaterial_2sliy")
+texture = ExtResource("4_8uff7")
+polygon = PackedVector2Array(12, -25, 24, -16, 24, 9, -1, 35, -24, 36, -32, -3, -32, -21, -1, -30)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="FreeTimer" to="." method="_on_free_timer_timeout"]
+[connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
