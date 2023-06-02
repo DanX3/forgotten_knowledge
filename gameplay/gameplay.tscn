@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdnyglk1i1cxl"]
+[gd_scene load_steps=10 format=3 uid="uid://bdnyglk1i1cxl"]
 
 [ext_resource type="Script" path="res://gameplay/gameplay.gd" id="1_thqv1"]
 [ext_resource type="Texture2D" uid="uid://c6px30nw8dto8" path="res://assets/Tiny Dungeon/Tilemap/tilemap.png" id="2_j8in5"]
 [ext_resource type="PackedScene" uid="uid://c0jtxjn75061f" path="res://gameplay/nodes/Player.tscn" id="3_cxw0r"]
+[ext_resource type="Script" path="res://gameplay/scripts/Spawner.gd" id="4_lekl7"]
+[ext_resource type="PackedScene" uid="uid://bxsapp5r6dk8a" path="res://gameplay/nodes/fly.tscn" id="5_mh3bf"]
 [ext_resource type="PackedScene" uid="uid://6l1m8xy50wl3" path="res://gameplay/nodes/rat.tscn" id="13_gvgwf"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_mj767"]
@@ -476,14 +478,21 @@ layer_2/tile_data = PackedInt32Array(-720900, 131088, 2, -720899, 131088, 2, -72
 z_index = 1
 position = Vector2(-31, 46)
 
-[node name="Enemy6" parent="." instance=ExtResource("13_gvgwf")]
-position = Vector2(-36, -34)
+[node name="Spawner" type="Node2D" parent="."]
+script = ExtResource("4_lekl7")
+enemies = Array[PackedScene]([ExtResource("5_mh3bf"), ExtResource("13_gvgwf")])
 
-[node name="Enemy7" parent="." instance=ExtResource("13_gvgwf")]
-position = Vector2(-85, 36)
+[node name="Marker2D" type="Marker2D" parent="Spawner" groups=["spawn"]]
+position = Vector2(-102, -59)
 
-[node name="Enemy8" parent="." instance=ExtResource("13_gvgwf")]
-position = Vector2(37, 63)
+[node name="Marker2D2" type="Marker2D" parent="Spawner" groups=["spawn"]]
+position = Vector2(-105, 58)
 
-[node name="Enemy9" parent="." instance=ExtResource("13_gvgwf")]
-position = Vector2(79, 9)
+[node name="Marker2D3" type="Marker2D" parent="Spawner" groups=["spawn"]]
+position = Vector2(191, -55)
+
+[node name="Marker2D4" type="Marker2D" parent="Spawner" groups=["spawn"]]
+position = Vector2(186, 51)
+
+[node name="Marker2D5" type="Marker2D" parent="Spawner" groups=["spawn"]]
+position = Vector2(46, -23)

@@ -2,6 +2,8 @@ extends Node2D
 
 class_name Enemy
 
+signal died(enemy)
+
 @export var contact_damage: int
 @export var health: Health
 @export var collectible_scene : PackedScene
@@ -17,6 +19,7 @@ func _on_hit_box_body_entered(body):
 		(body as Potion).hit_enemy(self)
 
 func _exit_tree():
+	emit_signal("died", self)
 	for drop in drops:
 		if randf_range(0.0, 1.0) < drop.drop_chance:
 			var new_collectible = collectible_scene.instantiate() as Collectible
