@@ -19,6 +19,9 @@ func take_damage(damage: int):
 	if not can_take_damage:
 		return
 		
+	if damage <= 0:
+		return
+		
 	hp -= damage
 	emit_signal("damaged", damage)
 	

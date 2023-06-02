@@ -1,0 +1,59 @@
+[gd_scene load_steps=5 format=3 uid="uid://due1dmlqk3wcm"]
+
+[ext_resource type="Script" path="res://gameplay/scripts/RatComponent.gd" id="1_w70o8"]
+
+[sub_resource type="Animation" id="Animation_7xv71"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/WalkMirror:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g05ju"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/WalkMirror:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0, 0),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(-1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c5b14"]
+_data = {
+"RESET": SubResource("Animation_7xv71"),
+"walk": SubResource("Animation_g05ju")
+}
+
+[node name="RatComponent" type="Node"]
+script = ExtResource("1_w70o8")
+
+[node name="SwitchStateTimer" type="Timer" parent="."]
+wait_time = 1.5
+autostart = true
+
+[node name="CloseThreshold" type="Marker2D" parent="."]
+position = Vector2(61, 0)
+
+[node name="WalkPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_c5b14")
+}
+
+[connection signal="timeout" from="SwitchStateTimer" to="." method="_on_switch_state_timer_timeout"]

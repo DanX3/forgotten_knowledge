@@ -1,58 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://bwmg4hsem3wt7"]
+[gd_scene load_steps=11 format=3 uid="uid://bwmg4hsem3wt7"]
 
-[ext_resource type="Texture2D" uid="uid://by43jw11n1y4x" path="res://assets/Pixel Platformer/Characters/character_0024.png" id="1_g3bad"]
 [ext_resource type="Script" path="res://gameplay/scripts/enemy.gd" id="1_mlcr2"]
 [ext_resource type="Resource" uid="uid://bakhahtj7ivbd" path="res://gameplay/items/Square.tres" id="2_fataw"]
-[ext_resource type="Texture2D" uid="uid://d0yp5nmvgbbu6" path="res://assets/Pixel Platformer/Characters/character_0025.png" id="2_pmmcw"]
 [ext_resource type="PackedScene" uid="uid://d0rwcldw3htfy" path="res://gameplay/nodes/collectible.tscn" id="2_trtem"]
 [ext_resource type="Script" path="res://gameplay/scripts/Drop.gd" id="3_g541u"]
-[ext_resource type="Texture2D" uid="uid://dc0bg1vlq4ous" path="res://assets/Pixel Platformer/Characters/character_0026.png" id="3_j2e0r"]
 [ext_resource type="Script" path="res://gameplay/scripts/FacePlayerComponent.gd" id="4_tvikq"]
-[ext_resource type="PackedScene" uid="uid://mdmnwc4b4vd3" path="res://gameplay/nodes/fly_component.tscn" id="5_uc070"]
 [ext_resource type="PackedScene" uid="uid://b6n1u35tex1x4" path="res://gameplay/nodes/health_component.tscn" id="7_1ll2t"]
 
 [sub_resource type="Resource" id="Resource_r3mf2"]
 script = ExtResource("3_g541u")
 drop_chance = 0.5
 item = ExtResource("2_fataw")
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8pc4w"]
-radius = 5.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8bxq0"]
-radius = 6.08276
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_8a6mm"]
-radius = 6.08276
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_ctu5r"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_g3bad")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_pmmcw")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_j2e0r")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_j2e0r")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_j2e0r")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_j2e0r")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_pmmcw")
-}],
-"loop": true,
-"name": &"default",
-"speed": 20.0
-}]
 
 [sub_resource type="Animation" id="Animation_8kg5v"]
 length = 0.001
@@ -104,36 +62,26 @@ collectible_scene = ExtResource("2_trtem")
 drops = Array[ExtResource("3_g541u")]([SubResource("Resource_r3mf2")])
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_8pc4w")
 
 [node name="HitBox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBox"]
-shape = SubResource("CircleShape2D_8bxq0")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 4
 collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-shape = SubResource("CircleShape2D_8a6mm")
 debug_color = Color(1, 0, 0.141176, 0.243137)
 
 [node name="Pivot" type="Node2D" parent="."]
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pivot"]
-scale = Vector2(0.75, 0.75)
-sprite_frames = SubResource("SpriteFrames_ctu5r")
-autoplay = "default"
-frame_progress = 0.918551
+editor_description = "Place visuals inside here"
 
 [node name="FacePlayerComponent" type="Node" parent="." node_paths=PackedStringArray("target")]
 script = ExtResource("4_tvikq")
 target = NodePath("../Pivot")
-
-[node name="FlyComponent" parent="." instance=ExtResource("5_uc070")]
 
 [node name="HealthComponent" parent="." instance=ExtResource("7_1ll2t")]
 

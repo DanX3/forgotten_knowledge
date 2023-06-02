@@ -1,0 +1,64 @@
+[gd_scene load_steps=10 format=3 uid="uid://bxsapp5r6dk8a"]
+
+[ext_resource type="PackedScene" uid="uid://bwmg4hsem3wt7" path="res://gameplay/nodes/enemy.tscn" id="1_oaa51"]
+[ext_resource type="PackedScene" uid="uid://mdmnwc4b4vd3" path="res://gameplay/nodes/fly_component.tscn" id="5_62alr"]
+[ext_resource type="Texture2D" uid="uid://by43jw11n1y4x" path="res://assets/Pixel Platformer/Characters/character_0024.png" id="5_ggymo"]
+[ext_resource type="Texture2D" uid="uid://d0yp5nmvgbbu6" path="res://assets/Pixel Platformer/Characters/character_0025.png" id="6_jjad8"]
+[ext_resource type="Texture2D" uid="uid://dc0bg1vlq4ous" path="res://assets/Pixel Platformer/Characters/character_0026.png" id="7_t2ole"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7wq3t"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gmose"]
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qh7np"]
+radius = 7.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hdgyj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_ggymo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jjad8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_t2ole")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_t2ole")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_t2ole")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_t2ole")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_jjad8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="Enemy" instance=ExtResource("1_oaa51")]
+contact_damage = 5
+
+[node name="CollisionShape2D" parent="." index="0"]
+shape = SubResource("CircleShape2D_7wq3t")
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("CircleShape2D_gmose")
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("CircleShape2D_qh7np")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Pivot" index="0"]
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_hdgyj")
+autoplay = "default"
+
+[node name="FlyComponent" parent="." index="7" instance=ExtResource("5_62alr")]

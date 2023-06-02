@@ -1,0 +1,78 @@
+[gd_scene load_steps=10 format=3 uid="uid://6l1m8xy50wl3"]
+
+[ext_resource type="PackedScene" uid="uid://bwmg4hsem3wt7" path="res://gameplay/nodes/enemy.tscn" id="1_vp0lp"]
+[ext_resource type="Texture2D" uid="uid://bjieitatj733v" path="res://assets/Tiny Dungeon/Tiles/tile_0123.png" id="2_p7n8j"]
+[ext_resource type="PackedScene" uid="uid://due1dmlqk3wcm" path="res://gameplay/nodes/rat_component.tscn" id="3_w2sdl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xh3fo"]
+size = Vector2(12, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6shst"]
+size = Vector2(14, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_oosbd"]
+
+[sub_resource type="Animation" id="Animation_7xv71"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/WalkMirror:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_g05ju"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot/WalkMirror:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0, 0),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(-1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c5b14"]
+_data = {
+"RESET": SubResource("Animation_7xv71"),
+"walk": SubResource("Animation_g05ju")
+}
+
+[node name="Enemy" instance=ExtResource("1_vp0lp")]
+linear_damp = 10.0
+contact_damage = 10
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 4)
+shape = SubResource("RectangleShape2D_xh3fo")
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("RectangleShape2D_6shst")
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("RectangleShape2D_oosbd")
+
+[node name="WalkMirror" type="Node2D" parent="Pivot" index="0"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Pivot/WalkMirror" index="0"]
+texture = ExtResource("2_p7n8j")
+
+[node name="RatComponent" parent="." index="7" instance=ExtResource("3_w2sdl")]
+
+[node name="WalkPlayer" type="AnimationPlayer" parent="RatComponent" index="3"]
+root_node = NodePath("../..")
+libraries = {
+"": SubResource("AnimationLibrary_c5b14")
+}

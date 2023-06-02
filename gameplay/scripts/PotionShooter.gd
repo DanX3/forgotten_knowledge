@@ -1,6 +1,6 @@
 extends Node2D
 
-const BASE_STRENGTH = 10.0
+class_name PotionShooter
 
 signal shoot(name, strength, items_needed)
 
@@ -57,7 +57,7 @@ func _on_timer_timeout():
 
 func _get_strength() -> float:
 	var res = (0.001 * Time.get_ticks_msec() - charge_time_start) / max_charge_duration_s
-	return min(res, 1.0) * min(res, 1.0)
+	return min(res, 0.8) * min(res, 0.8)
 
 func _can_shoot() -> bool:
 	return last_shot_at + cooldown < 0.001 * Time.get_ticks_msec()

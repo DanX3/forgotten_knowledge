@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://gny0qcctpo5u"]
+
+[ext_resource type="Script" path="res://gameplay/scripts/PotionMeter.gd" id="1_2xn58"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_mvgfn"]
+font_size = 8
+
+[node name="PotionMeter" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 113.0
+offset_bottom = 18.0
+script = ExtResource("1_2xn58")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer"]
+modulate = Color(0.592157, 1, 0.211765, 1)
+custom_minimum_size = Vector2(50, 5)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 5.0
+step = 1.0
+value = 3.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+text = "1/5"
+label_settings = SubResource("LabelSettings_mvgfn")
